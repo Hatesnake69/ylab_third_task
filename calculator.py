@@ -1,27 +1,22 @@
 import tkinter as tk
-
+from visuo import *
 import figures
 
 
 FIGURES = {
     'Square': figures.Square,
-    'Sphere': figures.Sphere,
     'Rectangle': figures.Rectangle,
     'Circle': figures.Circle,
     'Triangle': figures.Triangle,
     'Trapezoid': figures.Trapezoid,
     'Rhombus': figures.Rhombus,
+    'Sphere': figures.Sphere,
     'Cube': figures.Cube,
-    'Parallelepiped': figures.Parallelepiped
+    'Parallelepiped': figures.Parallelepiped,
+    'Pyramid': figures.Pyramid,
+    'Cylinder': figures.Cylinder,
+    'Cone': figures.Cone,
 }
-
-
-class GraphFrame(tk.Toplevel):
-    def __init__(self, master, *args, **kwargs):
-        tk.Toplevel.__init__(self, master, *args, **kwargs)
-
-        self.label = tk.Label(
-            self, text="SOSI ZHOPU SUKA").place(relx=.5, rely=.5)
 
 
 class Calculator(tk.Frame):
@@ -58,20 +53,18 @@ class Calculator(tk.Frame):
 
     def make_figure(self, name, params):
         updated_params = []
+
         for param in params:
             try:
+                if param.startswith('-'):
+                    raise ValueError
                 updated_params.append(float(param))
             except ValueError as ve:
                 updated_params.append(0.0)
-                print(ve)
-
         self.figure = FIGURES[name](*updated_params)
 
     def make_graph_window(self):
-        graph_window = GraphFrame(self.master)
-        graph_window.title('Graph')
-        graph_window.geometry('400x200')
-        graph_window.state('zoomed')
+        visualisation(self.figure)
 
     def make_form(self, figure_name):
         self.figure_name = figure_name

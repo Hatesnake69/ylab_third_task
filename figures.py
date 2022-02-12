@@ -17,10 +17,6 @@ class Figure(ABC):
     def get_perimeter(self):
         pass
 
-    @abstractmethod
-    def handle_param(self, param):
-        pass
-
 
 class Figure3D(ABC):
     methods = ['Area', 'Volume']
@@ -33,13 +29,8 @@ class Figure3D(ABC):
     def get_volume(self):
         pass
 
-    @abstractmethod
-    def handle_param(self, param):
-        pass
-
 
 class Square(Figure):
-
     name = 'Square'
     parameters = ['Side length']
 
@@ -47,10 +38,24 @@ class Square(Figure):
         self.side = side
 
     def get_area(self):
-        return self.side * self.side
+        try:
+            result = self.side * self.side
+            if result > 0 and type(self.get_perimeter()) != str:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def get_perimeter(self):
-        return self.side * 4
+        try:
+            result = self.side * 4
+            if result > 0:
+                return self.side * 4
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def handle_method(self, method):
         if method == 'Area':
@@ -58,31 +63,35 @@ class Square(Figure):
         elif method == 'Perimeter':
             return self.get_perimeter()
 
-    def handle_param(self, param):
-        if param == 'Side length':
-            return self.side
-
 
 class Rectangle(Square):
     name = 'Rectangle'
-    parameters = ['Width', 'Height']
+    parameters = ['Width', 'Length']
 
-    def __init__(self, width=0, height=0):
+    def __init__(self, width, length):
         super().__init__(width)
         self.width = width
-        self.height = height
+        self.length = length
 
     def get_area(self):
-        return self.width * self.height
+        try:
+            result = self.width * self.length
+            if result > 0:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def get_perimeter(self):
-        return 2 * (self.width + self.height)
-
-    def handle_param(self, param):
-        if param == 'Width':
-            return self.width
-        elif param == 'Height':
-            return self.height
+        try:
+            result = 2 * (self.width + self.length)
+            if result > 0 and type(self.get_area()) != str:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
 
 class Circle(Figure):
@@ -93,20 +102,30 @@ class Circle(Figure):
         self.radius = radius
 
     def get_area(self):
-        return self.radius ** 2 * math.pi
+        try:
+            result = self.radius ** 2 * math.pi
+            if result > 0:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def get_perimeter(self):
-        return 2 * self.radius * math.pi
+        try:
+            result = 2 * self.radius * math.pi
+            if result > 0 and type(self.get_area()) != str:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def handle_method(self, method):
         if method == 'Area':
             return self.get_area()
         elif method == 'Perimeter':
             return self.get_perimeter()
-
-    def handle_param(self, param):
-        if param == 'Radius':
-            return self.radius
 
 
 class Triangle(Figure):
@@ -119,27 +138,34 @@ class Triangle(Figure):
         self.side3 = side3
 
     def get_area(self):
-        return math.sqrt(self.get_perimeter()/2 *
-                         (self.get_perimeter()/2 - self.side1) *
-                         (self.get_perimeter()/2 - self.side2) *
-                         (self.get_perimeter()/2 - self.side3))
+        p = sum([self.side1, self.side2, self.side3]) / 2
+        try:
+            result = math.sqrt(p *
+                               (p - self.side1) *
+                               (p - self.side2) *
+                               (p - self.side3))
+            if result > 0:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def get_perimeter(self):
-        return sum([self.side1, self.side2, self.side3])
+        try:
+            result = sum([self.side1, self.side2, self.side3])
+            if result > 0 and type(self.get_area()) != str:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def handle_method(self, method):
         if method == 'Area':
             return self.get_area()
         elif method == 'Perimeter':
             return self.get_perimeter()
-
-    def handle_param(self, param):
-        if param == 'First side':
-            return self.side1
-        elif param == 'Second side':
-            return self.side2
-        elif param == 'Third side':
-            return self.side3
 
 
 class Trapezoid(Figure):
@@ -153,14 +179,28 @@ class Trapezoid(Figure):
         self.side2 = side2
 
     def get_area(self):
-        return ((self.base1 + self.base2) / (4 * (self.base2 - self.base1))) * \
+        try:
+            result = ((self.base1 + self.base2) / (4 * (self.base2 - self.base1))) * \
                math.sqrt((self.base1 - self.base2 + self.side1 + self.side2) *
                          (self.base1 - self.base2 + self.side1 - self.side2) *
                          (self.base1 - self.base2 - self.side1 + self.side2) *
                          (- self.base1 + self.base2 + self.side1 + self.side2))
+            if result > 0:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def get_perimeter(self):
-        return sum([self.base1, self.base2, self.side1, self.side2])
+        try:
+            result = sum([self.base1, self.base2, self.side1, self.side2])
+            if result > 0 and type(self.get_area()) != str:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def handle_method(self, method):
         if method == 'Area':
@@ -168,42 +208,40 @@ class Trapezoid(Figure):
         elif method == 'Perimeter':
             return self.get_perimeter()
 
-    def handle_param(self, param):
-        if param == 'Smaller base':
-            return self.base1
-        elif param == 'Bigger base':
-            return self.base2
-        elif param == 'First Side':
-            return self.side1
-        elif param == 'Second side':
-            return self.side2
-
 
 class Rhombus(Figure):
     name = 'Rhombus'
-    parameters = ['Side length', 'Angle between']
+    parameters = ['Side length', 'Angle\n(in radians)']
 
     def __init__(self, side, angle):
         self.side = side
         self.angle = angle
 
     def get_area(self):
-        return (self.side ** 2) * math.sin(self.angle)
+        try:
+            result = (self.side ** 2) * math.sin(self.angle)
+            if result > 0:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def get_perimeter(self):
-        return self.side * 4
+        try:
+            result = self.side * 4
+            if result > 0 and type(self.get_area()) != str:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def handle_method(self, method):
         if method == 'Area':
             return self.get_area()
         elif method == 'Perimeter':
             return self.get_perimeter()
-
-    def handle_param(self, param):
-        if param == 'Side length':
-            return self.side
-        elif param == 'Angle between':
-            return self.angle
 
 
 class Sphere(Figure3D):
@@ -215,20 +253,30 @@ class Sphere(Figure3D):
         self.radius = radius
 
     def get_area(self):
-        return 4 * math.pi * self.radius ** 2
+        try:
+            result = 4 * math.pi * self.radius ** 2
+            if result > 0 and type(self.get_volume()) != str:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def get_volume(self):
-        return (4 * math.pi * self.radius ** 3) / 3
+        try:
+            result = (4 * math.pi * self.radius ** 3) / 3
+            if result > 0:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def handle_method(self, method):
         if method == 'Area':
             return self.get_area()
         elif method == 'Volume':
             return self.get_volume()
-
-    def handle_param(self, param):
-        if param == 'Radius':
-            return self.radius
 
 
 class Cube(Figure3D):
@@ -239,55 +287,68 @@ class Cube(Figure3D):
         self.side = side
 
     def get_area(self):
-        return 6 * self.side ** 2
+        try:
+            result = 6 * self.side ** 2
+            if result > 0 and type(self.get_volume()) != str:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def get_volume(self):
-        return self.side ** 3
+        try:
+            result = self.side ** 3
+            if result > 0:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def handle_method(self, method):
         if method == 'Area':
             return self.get_area()
         elif method == 'Volume':
             return self.get_volume()
-
-    def handle_param(self, param):
-        if param == 'Side length':
-            return self.side
 
 
 class Parallelepiped(Figure3D):
     name = 'Parallelepiped'
-    parameters = ['Base side1', 'Base side2', 'Base angle between', 'Height']
+    parameters = ['Base width', 'Base length', 'Height']
 
-    def __init__(self, base_side1, base_side2, angle, height):
-        self.base_side1 = base_side1
-        self.base_side2 = base_side2
-        self.angle = angle
+    def __init__(self, base_width, base_length, height):
+        self.base_width = base_width
+        self.base_length = base_length
         self.height = height
 
     def get_area(self):
-        return 2 * (self.base_side1 * self.base_side2 * math.sin(self.angle)) + \
-               2 * (self.base_side1 * self.height) + \
-               2 * (self.base_side2 * self.height)
+        try:
+            result = 2 * ((self.base_width * self.base_length) +
+                          (self.height * self.base_length) +
+                          (self.height * self.base_width))
+            if result > 0 and type(self.get_volume()) != str:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def get_volume(self):
-        return self.height * (self.base_side1 * self.base_side2 * math.sin(self.angle))
+        try:
+            result = self.base_width * self.base_length * self.height
+            if result > 0:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def handle_method(self, method):
         if method == 'Area':
             return self.get_area()
         elif method == 'Volume':
             return self.get_volume()
-
-    def handle_param(self, param):
-        if param == 'Base side1':
-            return self.base_side1
-        elif param == 'Base side2':
-            return self.base_side2
-        elif param == 'Base angle between':
-            return self.angle
-        elif param == 'Height':
-            return self.height
 
 
 class Pyramid(Figure3D):
@@ -300,10 +361,26 @@ class Pyramid(Figure3D):
         self.height = height
 
     def get_area(self):
-        return
+        try:
+            r = self.side / (2*math.tan(math.pi/self.number))
+            h = math.sqrt(self.height**2 + r ** 2)
+            result = self.number * (self.side**2) / (4 * math.tan(math.pi/self.number)) + self.number * (0.5 * self.side * h)
+            if result > 0 and type(self.get_volume()) != str:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def get_volume(self):
-        return self.height * (self.base_side1 * self.base_side2 * math.sin(self.angle))
+        try:
+            result = (1/3) * self.height * self.number * (self.side**2) / (4 * math.tan(math.pi/self.number))
+            if result > 0:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
 
     def handle_method(self, method):
         if method == 'Area':
@@ -311,15 +388,76 @@ class Pyramid(Figure3D):
         elif method == 'Volume':
             return self.get_volume()
 
-    def handle_param(self, param):
-        if param == 'Base side1':
-            return self.base_side1
-        elif param == 'Base side2':
-            return self.base_side2
-        elif param == 'Base angle between':
-            return self.angle
-        elif param == 'Height':
-            return self.height
+
+class Cylinder(Figure3D):
+    name = 'Cylinder'
+    parameters = ['Radius', 'Height']
+
+    def __init__(self, radius, height):
+        self.radius = radius
+        self.height = height
+
+    def get_area(self):
+        try:
+            result = 2 * math.pi * ((self.radius**2) + self.radius * self.height)
+            if result > 0 and type(self.get_volume()) != str:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
+
+    def get_volume(self):
+        try:
+            result = math.pi * (self.radius**2) * self.height
+            if result > 0:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
+
+    def handle_method(self, method):
+        if method == 'Area':
+            return self.get_area()
+        elif method == 'Volume':
+            return self.get_volume()
+
+
+class Cone(Figure3D):
+    name = 'Cone'
+    parameters = ['Radius', 'Height']
+
+    def __init__(self, radius, height):
+        self.radius = radius
+        self.height = height
+
+    def get_area(self):
+        try:
+            l = math.sqrt(self.radius ** 2 + self.height ** 2)
+            result = math.pi * self.radius * (l+self.radius)
+            if result > 0 and type(self.get_volume()) != str:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
+
+    def get_volume(self):
+        try:
+            result = (1/3) * math.pi * (self.radius**2) * self.height
+            if result > 0:
+                return result
+            else:
+                return 'incorrect input'
+        except ValueError:
+            return 'incorrect input'
+
+    def handle_method(self, method):
+        if method == 'Area':
+            return self.get_area()
+        elif method == 'Volume':
+            return self.get_volume()
 
 
 if __name__ == '__main__':
