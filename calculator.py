@@ -1,5 +1,5 @@
 import tkinter as tk
-from visuo import *
+from visuo import visualisation
 import figures
 
 
@@ -20,17 +20,18 @@ FIGURES = {
 
 
 class Calculator(tk.Frame):
+    """Основной класс приложения"""
 
-    params = []
-
-    def __init__(self, master):
-        self.figure = figures.Sphere(42)
-        tk.Frame.__init__(self, master)
+    def __init__(self, master, *args, **kwargs):
+        """Инициализатор, в котором создаётся базовая разметка фрейма"""
+        tk.Frame.__init__(self, master, *args, **kwargs)
         self.master = master
+
+        self.figure = figures.Sphere(42)
+        self.params = []
 
         self.figure_name = tk.StringVar()
         self.figure_name.set(self.figure.name)
-
         self.dropdown = tk.OptionMenu(
             self.master, self.figure_name, *FIGURES.keys(), command=self.make_form)
         self.dropdown.config(width=16, height=1)
@@ -45,13 +46,19 @@ class Calculator(tk.Frame):
         self.results = []
 
     def destroy_widgets(self, widgets):
+        """Функция, удаляющая виджеты из списка"""
         for widget in widgets:
             widget.destroy()
 
     def entry_update(self, param, i):
+        """
+        Callback-функция, которая вызывается на каждом обновлении поля ввода
+        и обновляет список результатов
+        """
         self.make_results()
 
     def make_figure(self, name, params):
+        """Функция создаёт экземпляр фигуры по заданным параметрам"""
         updated_params = []
 
         for param in params:
@@ -64,9 +71,11 @@ class Calculator(tk.Frame):
         self.figure = FIGURES[name](*updated_params)
 
     def make_graph_window(self):
+        """Функция создаёт окно графика для вырбанной фигуры"""
         visualisation(self.figure)
 
     def make_form(self, figure_name):
+        """Метод создаёт список названий параметров и текстовые поля для их ввода"""
         self.figure_name = figure_name
         if len(self.form) != 0:
             self.destroy_widgets(self.form)
@@ -74,9 +83,11 @@ class Calculator(tk.Frame):
 
         for i, param in enumerate(FIGURES[figure_name].parameters):
 
+            # Создание списка параметров с функцией обратного вызова, срабатывающей в момент записи
             self.params.append(tk.StringVar())
             self.params[i].trace_add(
                 'write', lambda name, index, mode, var=self.params[i], i=i: self.entry_update(var, i))
+            # Разметка формы ввода
             lable = tk.Label(self.master, text=param,
                              width=20)
             lable.grid(column=1, row=i)
@@ -87,6 +98,7 @@ class Calculator(tk.Frame):
             self.form.append(entry)
 
     def make_results(self):
+        """Метод, генерирующий список результатов фигуры с заданными параметрами"""
         self.make_figure(str(self.figure_name), [
                          param.get() for param in self.params])
 
@@ -95,6 +107,7 @@ class Calculator(tk.Frame):
             self.results = []
 
         for i, method in enumerate(self.figure.methods):
+            # Разметка результатов
             method_name = tk.Label(
                 self.master, text=method, width=10, anchor=tk.W)
             method_name.grid(column=3, row=i)

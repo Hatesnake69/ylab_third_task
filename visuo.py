@@ -1,6 +1,6 @@
 from figures import *
 import matplotlib.pyplot as plt
-from numpy import linspace, pi, sin, cos, sqrt, exp
+from numpy import linspace, pi, sin, cos, sqrt
 import numpy as np
 from itertools import product, combinations
 
@@ -41,7 +41,6 @@ def visualisation(figure):
         x4 = sqrt(figure.side2**2 - y3 ** 2)
         x_list = [0, figure.base2, x3, x4, 0]
         y_list = [0, 0, y3, y3, 0]
-
         plt.plot(x_list, y_list)
         plt.axis('equal')
         plt.show()
@@ -52,7 +51,6 @@ def visualisation(figure):
         x4 = sqrt(figure.side**2 - y3**2)
         x_list = [0, figure.side, x3, x4, 0]
         y_list = [0, 0, y3, y3, 0]
-
         plt.plot(x_list, y_list)
         plt.axis('equal')
         plt.show()
@@ -83,33 +81,30 @@ def visualisation(figure):
         b = figure.base_length
         h = figure.height
         ax = fig.add_subplot(projection='3d')
-
         x1 = [0, a, a, 0, 0, 0, 0, a, a, 0]
         y1 = [0, 0, b, b, 0, 0, b, b, 0, 0]
         z1 = [0, 0, 0, 0, 0, h, h, h, h, h]
-
         x2 = [a, a]
         y2 = [0, 0]
         z2 = [h, 0]
-
         x3 = [a, a]
         y3 = [b, b]
         z3 = [h, 0]
         x4 = [0, 0]
         y4 = [b, b]
         z4 = [h, 0]
-
-        ax.plot(x1, y1, z1, color="b")
-        ax.plot(x2, y2, z2, color="b")
-        ax.plot(x3, y3, z3, color="b")
-        ax.plot(x4, y4, z4, color="b")
-
+        ax.plot(x1, y1, z1, color='b')
+        ax.plot(x2, y2, z2, color='b')
+        ax.plot(x3, y3, z3, color='b')
+        ax.plot(x4, y4, z4, color='b')
         ax.set_xlim3d(0, max([a, b, h]))
         ax.set_ylim3d(0, max([a, b, h]))
         ax.set_zlim3d(0, max([a, b, h]))
         plt.show()
 
     elif figure.name == 'Pyramid':
+        if math.modf(figure.number)[0] > 0.0001:
+            raise ValueError
         fig = plt.figure()
         n = figure.number
         a = figure.side
@@ -117,7 +112,6 @@ def visualisation(figure):
         r = a / (2*sin(pi/n))
         tet = 2*pi / n
         ax = fig.add_subplot(projection='3d')
-
         x1 = r
         y1 = 0
         for i in range(int(n)):
@@ -129,11 +123,10 @@ def visualisation(figure):
             xx = [x1, 0]
             yy = [y1, 0]
             zz = [0, h]
-            ax.plot(x, y, z, color="b")
-            ax.plot(xx, yy, zz, color="b")
+            ax.plot(x, y, z, color='b')
+            ax.plot(xx, yy, zz, color='b')
             x1 = x2
             y1 = y2
-
         ax.set_xlim3d(-max([a, r, h]), max([a, r, h]))
         ax.set_ylim3d(-max([a, r, h]), max([a, r, h]))
         ax.set_zlim3d(0, max([a, r, h]))
@@ -159,11 +152,10 @@ def visualisation(figure):
             xx = [x1, 0]
             yy = [y1, 0]
             zz = [0, h]
-            ax.plot(x, y, z, color="b")
-            ax.plot(xx, yy, zz, color="b")
+            ax.plot(x, y, z, color='b')
+            ax.plot(xx, yy, zz, color='b')
             x1 = x2
             y1 = y2
-
         ax.set_xlim3d(-max([a, r, h]), max([a, r, h]))
         ax.set_ylim3d(-max([a, r, h]), max([a, r, h]))
         ax.set_zlim3d(0, max([a, r, h]))
@@ -177,7 +169,6 @@ def visualisation(figure):
         a = 2 * r * sin(pi / n)
         tet = 2*pi / n
         ax = fig.add_subplot(projection='3d')
-
         x1 = r
         y1 = 0
         for i in range(int(n)):
@@ -189,11 +180,10 @@ def visualisation(figure):
             xx = [x1, x1]
             yy = [y1, y1]
             zz = [0, h]
-            ax.plot(x, y, z, color="b")
-            ax.plot(xx, yy, zz, color="b")
+            ax.plot(x, y, z, color='b')
+            ax.plot(xx, yy, zz, color='b')
             x1 = x2
             y1 = y2
-
         ax.set_xlim3d(-max([a, r, h]), max([a, r, h]))
         ax.set_ylim3d(-max([a, r, h]), max([a, r, h]))
         ax.set_zlim3d(0, max([a, r, h]))
@@ -201,6 +191,7 @@ def visualisation(figure):
 
 
 if __name__ == '__main__':
+    pass
     # fig = Square(3)
     # visualisation(fig)
     # fig = Circle(2)
@@ -218,8 +209,8 @@ if __name__ == '__main__':
     # fig = Parallelepiped(1,2,3)
     # visualisation(fig)
     # fig = Pyramid(34,1,23)
+    # # visualisation(fig)
+    # # fig = Cylinder(1, 1)
+    # # visualisation(fig)
+    # fig = Cone(3, 10)
     # visualisation(fig)
-    # fig = Cylinder(1, 1)
-    # visualisation(fig)
-    fig = Cone(3, 10)
-    visualisation(fig)

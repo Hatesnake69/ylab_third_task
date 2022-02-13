@@ -353,7 +353,7 @@ class Parallelepiped(Figure3D):
 
 class Pyramid(Figure3D):
     name = 'Pyramid'
-    parameters = ['Number of sides in base Polygon', 'Side', 'Height']
+    parameters = ['Number of sides\nin base Polygon', 'Side', 'Height']
 
     def __init__(self, number, side,  height):
         self.number = number
@@ -375,7 +375,7 @@ class Pyramid(Figure3D):
     def get_volume(self):
         try:
             result = (1/3) * self.height * self.number * (self.side**2) / (4 * math.tan(math.pi/self.number))
-            if result > 0:
+            if result > 0 and math.modf(self.number)[0] < 0.0001:
                 return result
             else:
                 return 'incorrect input'
