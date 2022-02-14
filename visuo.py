@@ -6,27 +6,27 @@ from itertools import product, combinations
 
 
 def visualisation(figure):
-    if figure.name == "Square":
+    if figure.name() == "Square":
         x_list = [0, figure.side, figure.side, 0, 0]
         y_list = [0, 0, figure.side, figure.side, 0]
         plt.plot(x_list, y_list)
         plt.axis('equal')
         plt.show()
 
-    elif figure.name == 'Circle':
+    elif figure.name() == 'Circle':
         t = linspace(0, 2 * pi, 100)
         plt.plot(figure.radius * cos(t) + figure.radius, figure.radius * sin(t) + figure.radius)
         plt.axis('equal')
         plt.show()
 
-    elif figure.name == 'Rectangle':
+    elif figure.name() == 'Rectangle':
         x_list = [0, figure.width, figure.width, 0, 0]
         y_list = [0, 0, figure.length, figure.length, 0]
         plt.plot(x_list, y_list)
         plt.axis('equal')
         plt.show()
 
-    elif figure.name == 'Triangle':
+    elif figure.name() == 'Triangle':
         y3 = sqrt(1 / (4 * (figure.side1 ** 2))*(figure.get_perimeter()*(figure.get_perimeter()-2*figure.side2)*(figure.get_perimeter()-2*figure.side3)*(figure.get_perimeter()-2*figure.side1)))
         x3 = sqrt((figure.side3 ** 2) - (y3 ** 2))
         x_list = [0, figure.side1, x3, 0]
@@ -35,7 +35,7 @@ def visualisation(figure):
         plt.axis('equal')
         plt.show()
 
-    elif figure.name == 'Trapezoid':
+    elif figure.name() == 'Trapezoid':
         y3 = sqrt(figure.side2**2 - (((figure.base2-figure.base1)**2+figure.side1**2-figure.side2**2)/(2*(figure.base2-figure.base1)))**2)
         x3 = figure.base2 - sqrt(figure.side2**2 - y3 ** 2)
         x4 = sqrt(figure.side2**2 - y3 ** 2)
@@ -45,7 +45,7 @@ def visualisation(figure):
         plt.axis('equal')
         plt.show()
 
-    elif figure.name == 'Rhombus':
+    elif figure.name() == 'Rhombus':
         y3 = figure.side * sin(figure.angle)
         x3 = sqrt(figure.side**2 - y3**2) + figure.side
         x4 = sqrt(figure.side**2 - y3**2)
@@ -55,7 +55,7 @@ def visualisation(figure):
         plt.axis('equal')
         plt.show()
 
-    elif figure.name == 'Sphere':
+    elif figure.name() == 'Sphere':
         u, v = np.mgrid[0:2 * pi:20j, 0:pi:20j]
         x = np.cos(u) * np.sin(v) * figure.radius
         y = np.sin(u) * np.sin(v) * figure.radius
@@ -66,7 +66,7 @@ def visualisation(figure):
         plt.axis('auto')
         plt.show()
 
-    elif figure.name == 'Cube':
+    elif figure.name() == 'Cube':
         r = [0, figure.side]
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
@@ -75,7 +75,7 @@ def visualisation(figure):
                 ax.plot3D(*zip(s, e), color="b")
         plt.show()
 
-    elif figure.name == 'Parallelepiped':
+    elif figure.name() == 'Parallelepiped':
         fig = plt.figure()
         a = figure.base_width
         b = figure.base_length
@@ -102,7 +102,7 @@ def visualisation(figure):
         ax.set_zlim3d(0, max([a, b, h]))
         plt.show()
 
-    elif figure.name == 'Pyramid':
+    elif figure.name() == 'Pyramid':
         if math.modf(figure.number)[0] > 0.0001 or figure.number < 3:
             raise ValueError
         fig = plt.figure()
@@ -132,7 +132,7 @@ def visualisation(figure):
         ax.set_zlim3d(0, max([a, r, h]))
         plt.show()
 
-    elif figure.name == 'Cylinder':
+    elif figure.name() == 'Cylinder':
         fig = plt.figure()
         n = 300
         h = figure.height
@@ -161,7 +161,7 @@ def visualisation(figure):
         ax.set_zlim3d(0, max([a, r, h]))
         plt.show()
 
-    elif figure.name == 'Cone':
+    elif figure.name() == 'Cone':
         fig = plt.figure()
         n = 400
         h = figure.height

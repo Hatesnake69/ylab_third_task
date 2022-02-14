@@ -3,35 +3,58 @@ from abc import ABC, abstractmethod
 
 
 class Figure(ABC):
+    """Класс плоской фигуры"""
     methods = ['Area', 'Perimeter']
 
+    @staticmethod
     @abstractmethod
-    def handle_method(self, method):
-       pass
+    def name():
+        """Возвращает имя фигуры"""
+
+    @classmethod
+    def handle_method(cls, method):
+        """Возвращает метод инстанса класса"""
+        if method == 'Area':
+            return cls.get_area
+        elif method == 'Perimeter':
+            return cls.get_perimeter
 
     @abstractmethod
     def get_area(self):
-        pass
+        """Возвращает площадь фигуры"""
 
     @abstractmethod
     def get_perimeter(self):
-        pass
+        """Возвращает периметр фигуры"""
 
 
 class Figure3D(ABC):
+    """Класс объемной фигуры"""
     methods = ['Area', 'Volume']
 
-    @abstractmethod
-    def handle_method(self, method):
-        pass
+    @classmethod
+    def handle_method(cls, method):
+        """Возвращает метод инстанса класса"""
+        if method == 'Area':
+            return cls.get_area
+        elif method == 'Perimeter':
+            return cls.get_volume
 
     @abstractmethod
     def get_volume(self):
-        pass
+        """Возвращает объем фигуры"""
+
+    @abstractmethod
+    def get_area(self):
+        """Возвращает площадь поверхности фигуры"""
 
 
 class Square(Figure):
-    name = 'Square'
+
+    @staticmethod
+    def name():
+        return 'Square'
+
     parameters = ['Side length']
 
     def __init__(self, side):
@@ -65,7 +88,11 @@ class Square(Figure):
 
 
 class Rectangle(Square):
-    name = 'Rectangle'
+
+    @staticmethod
+    def name():
+        return 'Rectangle'
+
     parameters = ['Width', 'Length']
 
     def __init__(self, width, length):
@@ -95,7 +122,11 @@ class Rectangle(Square):
 
 
 class Circle(Figure):
-    name = 'Circle'
+
+    @staticmethod
+    def name():
+        return 'Circle'
+
     parameters = ['Radius']
 
     def __init__(self, radius):
@@ -129,7 +160,11 @@ class Circle(Figure):
 
 
 class Triangle(Figure):
-    name = 'Triangle'
+
+    @staticmethod
+    def name():
+        return 'Triangle'
+
     parameters = ['First side', 'Second side', 'Third side']
 
     def __init__(self, side1, side2, side3):
@@ -169,7 +204,11 @@ class Triangle(Figure):
 
 
 class Trapezoid(Figure):
-    name = 'Trapezoid'
+
+    @staticmethod
+    def name():
+        return 'Trapezoid'
+
     parameters = ['Smaller base', 'Bigger base', 'First side', 'Second side']
 
     def __init__(self, base1, base2, side1, side2):
@@ -210,7 +249,11 @@ class Trapezoid(Figure):
 
 
 class Rhombus(Figure):
-    name = 'Rhombus'
+
+    @staticmethod
+    def name():
+        return 'Rhombus'
+
     parameters = ['Side length', 'Angle\n(in radians)']
 
     def __init__(self, side, angle):
@@ -246,7 +289,10 @@ class Rhombus(Figure):
 
 class Sphere(Figure3D):
 
-    name = 'Sphere'
+    @staticmethod
+    def name():
+        return 'Sphere'
+
     parameters = ['Radius']
 
     def __init__(self, radius=0):
@@ -280,7 +326,11 @@ class Sphere(Figure3D):
 
 
 class Cube(Figure3D):
-    name = 'Cube'
+
+    @staticmethod
+    def name():
+        return 'Cube'
+
     parameters = ['Side length']
 
     def __init__(self, side=0):
@@ -314,7 +364,11 @@ class Cube(Figure3D):
 
 
 class Parallelepiped(Figure3D):
-    name = 'Parallelepiped'
+
+    @staticmethod
+    def name():
+        return 'Parallelepiped'
+
     parameters = ['Base width', 'Base length', 'Height']
 
     def __init__(self, base_width, base_length, height):
@@ -352,7 +406,11 @@ class Parallelepiped(Figure3D):
 
 
 class Pyramid(Figure3D):
-    name = 'Pyramid'
+
+    @staticmethod
+    def name():
+        return 'Pyramid'
+
     parameters = ['Number of sides\nin base Polygon', 'Side', 'Height']
 
     def __init__(self, number, side,  height):
@@ -390,7 +448,11 @@ class Pyramid(Figure3D):
 
 
 class Cylinder(Figure3D):
-    name = 'Cylinder'
+
+    @staticmethod
+    def name():
+        return 'Cylinder'
+
     parameters = ['Radius', 'Height']
 
     def __init__(self, radius, height):
@@ -425,7 +487,11 @@ class Cylinder(Figure3D):
 
 
 class Cone(Figure3D):
-    name = 'Cone'
+
+    @staticmethod
+    def name():
+        return 'Cone'
+
     parameters = ['Radius', 'Height']
 
     def __init__(self, radius, height):

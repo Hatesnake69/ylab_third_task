@@ -31,7 +31,7 @@ class Calculator(tk.Frame):
         self.params = []
 
         self.figure_name = tk.StringVar()
-        self.figure_name.set(self.figure.name)
+        self.figure_name.set(self.figure.name())
         self.dropdown = tk.OptionMenu(
             self.master, self.figure_name, *FIGURES.keys(), command=self.make_form)
         self.dropdown.config(width=16, height=1)
@@ -41,7 +41,7 @@ class Calculator(tk.Frame):
             self.master, text='Draw', width=16, command=self.make_graph_window).grid(column=0)
 
         self.form = []
-        self.make_form(self.figure.name)
+        self.make_form(self.figure.name())
 
         self.results = []
 
