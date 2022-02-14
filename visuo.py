@@ -36,6 +36,11 @@ def visualisation(figure):
         plt.show()
 
     elif figure.name() == 'Trapezoid':
+        try:
+            for i in [figure.base1, figure.base2, figure.side1, figure.side2]:
+                a = 1/i
+        except:
+            return
         y3 = sqrt(figure.side2**2 - (((figure.base2-figure.base1)**2+figure.side1**2-figure.side2**2)/(2*(figure.base2-figure.base1)))**2)
         x3 = figure.base2 - sqrt(figure.side2**2 - y3 ** 2)
         x4 = sqrt(figure.side2**2 - y3 ** 2)

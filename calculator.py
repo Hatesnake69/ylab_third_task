@@ -27,7 +27,7 @@ class Calculator(tk.Frame):
         tk.Frame.__init__(self, master, *args, **kwargs)
         self.master = master
 
-        self.figure = figures.Sphere(42)
+        self.figure = figures.Sphere(0)
         self.params = []
 
         self.figure_name = tk.StringVar()
@@ -67,7 +67,7 @@ class Calculator(tk.Frame):
                     raise ValueError
                 updated_params.append(float(param))
             except ValueError as ve:
-                updated_params.append(0.0)
+                updated_params.append(0)
         self.figure = FIGURES[name](*updated_params)
 
     def make_graph_window(self):

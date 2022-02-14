@@ -12,6 +12,7 @@ class Figure(ABC):
         """Возвращает имя фигуры"""
 
     @classmethod
+    @abstractmethod
     def handle_method(cls, method):
         """Возвращает метод инстанса класса"""
         if method == 'Area':
@@ -33,6 +34,7 @@ class Figure3D(ABC):
     methods = ['Area', 'Volume']
 
     @classmethod
+    @abstractmethod
     def handle_method(cls, method):
         """Возвращает метод инстанса класса"""
         if method == 'Area':
@@ -219,6 +221,9 @@ class Trapezoid(Figure):
 
     def get_area(self):
         try:
+            for i in [self.base1, self.base2, self.side1, self.side2]:
+                a = 1/i
+
             result = ((self.base1 + self.base2) / (4 * (self.base2 - self.base1))) * \
                math.sqrt((self.base1 - self.base2 + self.side1 + self.side2) *
                          (self.base1 - self.base2 + self.side1 - self.side2) *
@@ -228,7 +233,7 @@ class Trapezoid(Figure):
                 return result
             else:
                 return 'incorrect input'
-        except ValueError:
+        except:
             return 'incorrect input'
 
     def get_perimeter(self):
