@@ -55,6 +55,8 @@ def visualisation(figure):
         try:
             for i in [figure.base1, figure.base2, figure.side1, figure.side2]:
                 a = 1/i
+            if isinstance(figure.get_area(), str):
+                return
         except:
             return
         try:
