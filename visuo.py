@@ -96,7 +96,7 @@ def visualisation(figure):
         u, v = np.mgrid[0:2 * np.pi:40j, 0:np.pi:20j]
         x = np.cos(u) * np.sin(v) * figure.radius
         y = np.sin(u) * np.sin(v) * figure.radius
-        z = np.cos(v) * figure.radius * 1.2
+        z = np.cos(v) * figure.radius * 1.25
         ax.plot_surface(x, y, z, color='b')
         ax.set_xlim3d(-figure.radius, figure.radius)
         ax.set_ylim3d(-figure.radius, figure.radius)
