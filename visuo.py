@@ -61,6 +61,10 @@ def visualisation(figure):
         plt.show()
 
     elif figure.name() == 'Sphere':
+        try:
+            a = 1/figure.radius
+        except:
+            return
         u, v = np.mgrid[0:2 * pi:20j, 0:pi:20j]
         x = np.cos(u) * np.sin(v) * figure.radius
         y = np.sin(u) * np.sin(v) * figure.radius
@@ -72,6 +76,10 @@ def visualisation(figure):
         plt.show()
 
     elif figure.name() == 'Cube':
+        try:
+            a = 1/figure.side
+        except:
+            return
         r = [0, figure.side]
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
@@ -81,6 +89,11 @@ def visualisation(figure):
         plt.show()
 
     elif figure.name() == 'Parallelepiped':
+        try:
+            for i in [figure.base_width, figure.base_length, figure.height]:
+                a = 1/i
+        except:
+            return
         fig = plt.figure()
         a = figure.base_width
         b = figure.base_length
@@ -108,8 +121,13 @@ def visualisation(figure):
         plt.show()
 
     elif figure.name() == 'Pyramid':
-        if math.modf(figure.number)[0] > 0.0001 or figure.number < 3:
-            raise ValueError
+        try:
+            for i in [figure.number, figure.side, figure.height]:
+                if math.modf(figure.number)[0] > 0.0001 or figure.number < 3:
+                    raise ValueError
+                a = 1/i
+        except:
+            return
         fig = plt.figure()
         n = figure.number
         a = figure.side
@@ -137,9 +155,14 @@ def visualisation(figure):
         ax.set_zlim3d(0, max([a, r, h]))
         plt.show()
 
-    elif figure.name() == 'Cylinder':
+    elif figure.name() == 'Cone':
+        try:
+            for i in [figure.height, figure.radius]:
+                a = 1/i
+        except:
+            return
         fig = plt.figure()
-        n = 300
+        n = 400
         h = figure.height
         r = figure.radius
         a = 2 * r * sin(pi / n)
@@ -166,7 +189,12 @@ def visualisation(figure):
         ax.set_zlim3d(0, max([a, r, h]))
         plt.show()
 
-    elif figure.name() == 'Cone':
+    elif figure.name() == 'Cylinder':
+        try:
+            for i in [figure.height, figure.radius]:
+                a = 1/i
+        except:
+            return
         fig = plt.figure()
         n = 400
         h = figure.height
@@ -217,5 +245,5 @@ if __name__ == '__main__':
     # # visualisation(fig)
     # # fig = Cylinder(1, 1)
     # # visualisation(fig)
-    # fig = Cone(3, 10)
-    # visualisation(fig)
+    fig = Cone(3, 10)
+    visualisation(fig)
