@@ -365,7 +365,7 @@ class Pyramid(Figure3D):
             r = self.side / (2*math.tan(math.pi/self.number))
             h = math.sqrt(self.height**2 + r ** 2)
             result = self.number * (self.side**2) / (4 * math.tan(math.pi/self.number)) + self.number * (0.5 * self.side * h)
-            if result > 0 and type(self.get_volume()) != str:
+            if result > 0 and type(self.get_volume()) != str and self.number >= 3:
                 return result
             else:
                 return 'incorrect input'
@@ -375,7 +375,7 @@ class Pyramid(Figure3D):
     def get_volume(self):
         try:
             result = (1/3) * self.height * self.number * (self.side**2) / (4 * math.tan(math.pi/self.number))
-            if result > 0 and math.modf(self.number)[0] < 0.0001:
+            if result > 0 and math.modf(self.number)[0] < 0.0001 and self.number >= 3:
                 return result
             else:
                 return 'incorrect input'

@@ -103,7 +103,7 @@ def visualisation(figure):
         plt.show()
 
     elif figure.name == 'Pyramid':
-        if math.modf(figure.number)[0] > 0.0001:
+        if math.modf(figure.number)[0] > 0.0001 or figure.number < 3:
             raise ValueError
         fig = plt.figure()
         n = figure.number
